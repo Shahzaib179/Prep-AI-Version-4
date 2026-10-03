@@ -327,6 +327,8 @@ def dashboard_stats(student_id: str) -> dict[str, Any]:
     topics = topic_mastery(student_id)
     answered = [r for r in rows if not r["skipped"]]
     correct = sum(1 for r in answered if r["is_correct"])
+    incorrect = max(0, len(answered) - correct)
+    skipped = len(rows) - len(answered)
     with connect() as con:
         due = con.execute("SELECT COUNT(*) FROM revision_schedule WHERE student_id=? AND next_review<=date('now')", (student_id,)).fetchone()[0]
     overall = sum(t["mastery_score"] for t in topics) / len(topics) if topics else 0.0
@@ -334,6 +336,7 @@ def dashboard_stats(student_id: str) -> dict[str, Any]:
     return {
         "overall": round(overall, 1), "attempted": len(answered), "skipped": len(rows) - len(answered),
         "accuracy": round(100 * correct / max(1, len(answered)), 1),
+        "correct": correct, "incorrect": incorrect, "skipped": skipped,
         "weak": ranked[0] if ranked else None, "strong": ranked[-1] if ranked else None,
         "topics_tracked": len(topics), "revision_due": due,
     }
