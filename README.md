@@ -267,7 +267,7 @@ On first start after upgrading, old stored scores are recalculated automatically
 
 ### 1 + 2. Memory reset and memory meter
 - **Memory** page → *Memory usage* ring chart: memories stored out of the limit, free slots, approximate storage, and a breakdown by type. The Dashboard shows the same ring.
-- The limit is `MEMORY_MAX_ITEMS` in `config.py` (default 500 per student). A warning appears at 80 % (`MEMORY_WARN_RATIO`). At 100 % the **least important, then oldest** memories are replaced automatically so the limit is never exceeded.
+- The limit is `MEMORY_MAX_ITEMS` in `config.py` (default 5000 per student). A warning appears at 80 % (`MEMORY_WARN_RATIO`). At 100 % the **least important, then oldest** memories are replaced automatically so the limit is never exceeded.
 - *Reset my memory* (bottom of the Memory page) needs an "I understand" tick. Optionally also delete saved Tutor/Research chat history. Quiz results, mastery and revision schedule are never touched.
 
 ### 3. Charts instead of percentages

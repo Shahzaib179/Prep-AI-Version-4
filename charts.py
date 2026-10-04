@@ -6,6 +6,7 @@ shared global, so one user's theme can never leak into another user's session).
 """
 from __future__ import annotations
 
+import html
 from typing import Any, Iterable
 
 import altair as alt
@@ -43,8 +44,33 @@ def _style(chart: Any) -> Any:
     )
 
 
+class Fig:
+    """A chart plus its title and legend.
+
+    The title and legend are drawn with normal Streamlit text instead of inside the
+    chart, so they can never be clipped or overlap the circle.
+    """
+
+    def __init__(self, chart: Any, title: str = "", legend: dict[str, str] | None = None):
+        self.chart, self.title, self.legend = chart, title, legend or {}
+
+
 def show(chart: Any) -> None:
     """Render a chart across Streamlit versions (use_container_width -> width='stretch')."""
+    if isinstance(chart, Fig):
+        if chart.title:
+            st.markdown(
+                f'<div style="text-align:center;font-weight:600;font-size:1rem;margin:0 0 .35rem 0;">{html.escape(chart.title)}</div>',
+                unsafe_allow_html=True,
+            )
+        show(chart.chart)
+        if chart.legend:
+            items = "".join(
+                f'<span style="display:inline-flex;align-items:center;margin:0 .6rem;"><span style="color:{c};font-size:1.1rem;margin-right:.3rem;">●</span>{html.escape(k)}</span>'
+                for k, c in chart.legend.items()
+            )
+            st.markdown(f'<div style="text-align:center;font-size:.85rem;margin-top:.25rem;">{items}</div>', unsafe_allow_html=True)
+        return
     try:
         st.altair_chart(chart, theme=None, width="stretch")
     except TypeError:
@@ -63,8 +89,8 @@ def ring(percent: float, title: str = "", color: str | None = None, size: int = 
         tooltip=alt.value(None),
     )
     label = center_text if center_text is not None else f"{pct:.0f}%"
-    txt = alt.Chart(pd.DataFrame({"t": [label]})).mark_text(fontSize=size * 0.16, fontWeight="bold", color=p["text"]).encode(text="t:N")
-    return _style(alt.layer(arc, txt).properties(width=size, height=size, title=title))
+    txt = alt.Chart(pd.DataFrame({"t": [label]})).mark_text(fontSize=size * (0.16 if len(label) <= 5 else 0.105), fontWeight="bold", color=p["text"]).encode(text="t:N")
+    return Fig(_style(alt.layer(arc, txt).properties(width=size, height=size)), title)
 
 
 def donut(parts: dict[str, float], colors: dict[str, str] | None = None, title: str = "", size: int = 190, center_text: str | None = None) -> Any:
@@ -80,13 +106,14 @@ def donut(parts: dict[str, float], colors: dict[str, str] | None = None, title: 
     rng = [(colors or {}).get(k, c) for k, c in zip(domain, ["#2563EB", "#F59E0B", "#9CA3AF", "#7C3AED", "#0EA5E9"] * 3)]
     arc = alt.Chart(df).mark_arc(innerRadius=size * 0.28, outerRadius=size * 0.46, stroke=None).encode(
         theta=alt.Theta("value:Q", stack=True),
-        color=alt.Color("label:N", scale=alt.Scale(domain=domain, range=rng), legend=alt.Legend(title=None)),
+        color=alt.Color("label:N", scale=alt.Scale(domain=domain, range=rng), legend=None),
         tooltip=[alt.Tooltip("label:N", title=""), alt.Tooltip("value:Q", title="Count"), alt.Tooltip("share:Q", title="Share %")],
     )
     layers = [arc]
     if center_text:
         layers.append(alt.Chart(pd.DataFrame({"t": [center_text]})).mark_text(fontSize=size * 0.14, fontWeight="bold", color=p["text"]).encode(text="t:N"))
-    return _style(alt.layer(*layers).properties(width=size, height=size, title=title))
+    legend = {} if domain == ["No data"] else dict(zip(domain, rng))
+    return Fig(_style(alt.layer(*layers).properties(width=size, height=size)), title, legend)
 
 
 def mastery_bars(rows: Iterable[dict[str, Any]], title: str = "Topic mastery") -> Any:
@@ -109,7 +136,7 @@ def mastery_bars(rows: Iterable[dict[str, Any]], title: str = "Topic mastery") -
     )
     labels = base.mark_text(align="left", dx=4, color=p["text"], fontSize=11).encode(x="score:Q", text=alt.Text("score:Q", format=".0f"))
     guides = alt.Chart(pd.DataFrame({"x": [60, 75]})).mark_rule(strokeDash=[4, 4], color=p["grid"]).encode(x="x:Q")
-    return _style(alt.layer(bars, labels, guides).properties(height=height, title=title))
+    return Fig(_style(alt.layer(bars, labels, guides).properties(height=height)), title)
 
 
 def score_trend(attempts: list[dict[str, Any]], title: str = "Quiz score over time") -> Any:
@@ -121,7 +148,7 @@ def score_trend(attempts: list[dict[str, Any]], title: str = "Quiz score over ti
     line = base.mark_line(color=_accent(), strokeWidth=2.5)
     pts = base.mark_point(color=_accent(), filled=True, size=70).encode(tooltip=[alt.Tooltip("n:Q", title="Quiz #"), alt.Tooltip("score:Q", title="Score %", format=".0f"), alt.Tooltip("topic:N", title="Topic"), alt.Tooltip("when:N", title="When")])
     goal = alt.Chart(pd.DataFrame({"y": [75]})).mark_rule(strokeDash=[4, 4], color=p["grid"]).encode(y="y:Q")
-    return _style(alt.layer(line, pts, goal).properties(height=240, title=title))
+    return Fig(_style(alt.layer(line, pts, goal).properties(height=240)), title)
 
 
 def simple_bars(labels: list[str], values: list[float], title: str = "", value_title: str = "Value", domain: tuple[float, float] | None = (0, 100), color: str | None = None) -> Any:
@@ -130,4 +157,4 @@ def simple_bars(labels: list[str], values: list[float], title: str = "", value_t
     chart = alt.Chart(df).mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4, color=color or _accent()).encode(
         x=alt.X("label:N", sort=None, title=None, axis=alt.Axis(labelAngle=-30, labelLimit=140)), y=y,
         tooltip=[alt.Tooltip("label:N", title=""), alt.Tooltip("value:Q", title=value_title)])
-    return _style(chart.properties(height=240, title=title))
+    return Fig(_style(chart.properties(height=240)), title)

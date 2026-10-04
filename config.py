@@ -28,7 +28,7 @@ UI_COLORS = {
 }
 
 # --- Long-term memory limits (feature: memory usage meter) -------------------
-MEMORY_MAX_ITEMS = 500          # hard cap of stored memories per student
+MEMORY_MAX_ITEMS = 5000         # hard cap of stored memories per student (meter runs 0 to 5000)
 MEMORY_WARN_RATIO = 0.80        # show a warning from this fill level
 
 # --- Quiz timer / size limits -------------------------------------------------
