@@ -1,0 +1,138 @@
+{
+  "_readme": "Editable merit formulas. Weights must add up to 100. Every entry carries its sources and a confidence level. If your prospectus says something different, edit the weights here (or use the 'Custom' formula in the app). status/confidence/verify_note are shown to the student so nobody trusts a number blindly.",
+  "last_reviewed": "2026-10-04",
+  "formulas": [
+    {
+      "id": "mdcat_pmdc",
+      "exam": "MDCAT",
+      "name": "MDCAT - PMDC pool (Matric 10 / FSc 40 / MDCAT 50)",
+      "authority": "PMDC / provincial admission authorities (e.g. UHS Punjab)",
+      "applies_to": "MBBS/BDS in public and private colleges that follow the PMDC MDCAT",
+      "program_family": "Medical",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 10, "default_total": 1100},
+        {"key": "fsc", "label": "FSc / HSSC (Pre-Medical)", "weight": 40, "default_total": 1100},
+        {"key": "test", "label": "MDCAT", "weight": 50, "default_total": 180}
+      ],
+      "eligibility": [
+        {"component": "test", "type": "min_percent", "value": 55, "program": "MBBS", "text": "Minimum 55% in MDCAT for MBBS", "confidence": "medium"},
+        {"component": "test", "type": "min_percent", "value": 45, "program": "BDS", "text": "Minimum 45% in MDCAT for BDS (reported; NUMS uses 50%)", "confidence": "low"}
+      ],
+      "status": "widely-reported",
+      "confidence": "medium",
+      "sources": [
+        {"title": "Dawn - UHS issues first merit list for MBBS admission (states the 10/40/50 weightage)", "url": "https://www.dawn.com/news/1727898", "type": "news"},
+        {"title": "MDCAT aggregate formula 2026 (secondary)", "url": "https://www.toolsfluent.com/blog/mdcat-aggregate-formula-2026", "type": "secondary"},
+        {"title": "MDCAT aggregate calculator - MDCAT out of 180 (secondary)", "url": "https://maqsad.io/mdcat-aggregate-calculator", "type": "secondary"}
+      ],
+      "verify_note": "Some provinces/institutions have reportedly used different weights (e.g. KMU, federal colleges). Confirm in your province's admission prospectus."
+    },
+    {
+      "id": "nums_official",
+      "exam": "NUMS",
+      "name": "NUMS MDCAT (Matric 10 / FSc 40 / NUMS test 50)",
+      "authority": "National University of Medical Sciences (NUMS)",
+      "applies_to": "NUMS-affiliated medical/dental colleges (e.g. Army Medical College, CMH)",
+      "program_family": "Medical",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 10, "default_total": 1100},
+        {"key": "fsc", "label": "FSc / HSSC (Pre-Medical)", "weight": 40, "default_total": 1100},
+        {"key": "test", "label": "NUMS entry test", "weight": 50, "default_total": 200}
+      ],
+      "eligibility": [
+        {"component": "test", "type": "min_percent", "value": 55, "program": "MBBS", "text": "NUMS pass percentage: 55% for MBBS", "confidence": "high"},
+        {"component": "test", "type": "min_percent", "value": 50, "program": "BDS", "text": "NUMS pass percentage: 50% for BDS", "confidence": "high"},
+        {"component": "fsc", "type": "min_percent", "value": 60, "program": "MBBS", "text": "Minimum 60% in FSc Pre-Medical (reported by secondary sources)", "confidence": "low"}
+      ],
+      "status": "official-session-2025-26",
+      "confidence": "high",
+      "sources": [
+        {"title": "NUMS - Centralized Admissions MBBS/BDS Session 2025-26 (official merit calculation table and pass percentages)", "url": "https://numspak.edu.pk/news-detail/centralized-admissions-mbbs-bds-session-2025-26", "type": "official"},
+        {"title": "NUMS aggregate formula 2026 (test out of 200 - secondary)", "url": "https://www.toolsfluent.com/blog/nums-aggregate-formula-2026", "type": "secondary"}
+      ],
+      "verify_note": "Weights confirmed on the official 2025-26 notice. Test total (200) comes from secondary sources. Some blogs claim 50% FSc + 50% test for Army Medical College: check the current prospectus."
+    },
+    {
+      "id": "ecat_uet_17_50_33",
+      "exam": "ECAT",
+      "name": "ECAT - UET Lahore (Matric 17 / FSc 50 / ECAT 33)",
+      "authority": "UET Lahore",
+      "applies_to": "UET Lahore and UET campuses using the ECAT",
+      "program_family": "Engineering",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 17, "default_total": 1100},
+        {"key": "fsc", "label": "FSc Pre-Engineering (see note)", "weight": 50, "default_total": 1100, "hint": "Some calculators use FSc Part-I only (out of 505). Use the marks the prospectus asks for."},
+        {"key": "test", "label": "ECAT", "weight": 33, "default_total": 400}
+      ],
+      "eligibility": [],
+      "status": "conflicting-secondary-sources",
+      "confidence": "low",
+      "sources": [
+        {"title": "UET merit calculator 2026 - 17/50/33 (secondary)", "url": "https://freetoolforge.org/tools/calculators/uet-merit-calculator", "type": "secondary"},
+        {"title": "ECAT aggregate calculator 2026 (secondary)", "url": "https://campusaxis.pk/ecat-aggregate-calculator", "type": "secondary"}
+      ],
+      "verify_note": "Sources disagree on UET weights (17/50/33 vs 25/45/30). No official UET page was available when this was written. CONFIRM with the UET prospectus, or pick the legacy formula / Custom."
+    },
+    {
+      "id": "ecat_uet_25_45_30",
+      "exam": "ECAT",
+      "name": "ECAT - legacy UET formula (Matric 25 / FSc 45 / ECAT 30)",
+      "authority": "UET Lahore (formula reported since 2018)",
+      "applies_to": "Older UET cycles; some sites still quote it",
+      "program_family": "Engineering",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 25, "default_total": 1100},
+        {"key": "fsc", "label": "FSc Pre-Engineering", "weight": 45, "default_total": 1100},
+        {"key": "test", "label": "ECAT", "weight": 30, "default_total": 400}
+      ],
+      "eligibility": [],
+      "status": "legacy-conflicting",
+      "confidence": "low",
+      "sources": [
+        {"title": "UET aggregate calculator (secondary, 25/45/30)", "url": "https://www.urdupoint.com/education/uet-aggregate-calculator.html", "type": "secondary"},
+        {"title": "ECAT result 2025 aggregate calculator (secondary)", "url": "https://resultchecker.pk/ecat-result-2025-aggregate-calculator/", "type": "secondary"}
+      ],
+      "verify_note": "Use only if your prospectus says so."
+    },
+    {
+      "id": "nust_net",
+      "exam": "NUST NET",
+      "name": "NUST NET (Matric 10 / FSc 15 / NET 75)",
+      "authority": "NUST",
+      "applies_to": "NUST undergraduate programs that use the NET",
+      "program_family": "Engineering / Computing / Sciences",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 10, "default_total": 1100},
+        {"key": "fsc", "label": "FSc / HSSC", "weight": 15, "default_total": 1100},
+        {"key": "test", "label": "NET", "weight": 75, "default_total": 200}
+      ],
+      "eligibility": [],
+      "status": "single-secondary-source",
+      "confidence": "low",
+      "sources": [
+        {"title": "University aggregate formulas in Pakistan (worked NET example, secondary)", "url": "https://www.edumap.blog/2025/10/learn-how-to-calculate-aggregate-merit-for-university-admission-in-pakistan.html", "type": "secondary"}
+      ],
+      "verify_note": "Only one secondary source was found. Confirm on the NUST admissions page for your intake."
+    },
+    {
+      "id": "nts_nat_generic",
+      "exam": "NTS (NAT)",
+      "name": "NTS-NAT based universities - generic template (Matric 10 / FSc 40 / NAT 50)",
+      "authority": "Each university decides; NTS only conducts the test",
+      "applies_to": "Universities that accept the NTS National Aptitude Test",
+      "program_family": "General",
+      "components": [
+        {"key": "matric", "label": "Matric / SSC", "weight": 10, "default_total": 1100},
+        {"key": "fsc", "label": "FSc / HSSC", "weight": 40, "default_total": 1100},
+        {"key": "test", "label": "NTS NAT", "weight": 50, "default_total": 100}
+      ],
+      "eligibility": [],
+      "status": "generic-template",
+      "confidence": "low",
+      "sources": [
+        {"title": "University aggregate formulas in Pakistan (secondary, NAT 50/40/10)", "url": "https://www.edumap.blog/2025/10/learn-how-to-calculate-aggregate-merit-for-university-admission-in-pakistan.html", "type": "secondary"}
+      ],
+      "verify_note": "NTS does not set merit. EVERY university publishes its own weights: use the 'Custom' formula with the weights from that university's prospectus."
+    }
+  ]
+}

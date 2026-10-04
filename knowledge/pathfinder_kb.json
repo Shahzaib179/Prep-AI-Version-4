@@ -1,0 +1,412 @@
+{
+ "_readme": "Path Finder knowledge base. Every record has a source_type and confidence. 'general-knowledge' records are NOT verified facts: the app labels them 'general guidance - verify'. Add or correct records here; the agent will only ever state what is in this file, in your uploaded documents, or in cited web results.",
+ "meta": {
+  "version": "1.0",
+  "last_reviewed": "2026-10-04"
+ },
+ "interest_map": {
+  "Medicine & healthcare": [
+   "prog_mbbs",
+   "prog_bds",
+   "prog_pharmd"
+  ],
+  "Engineering": [
+   "prog_engineering"
+  ],
+  "Computer science & AI": [
+   "prog_computing"
+  ],
+  "Business & finance": [
+   "prog_business"
+  ],
+  "Pharmacy": [
+   "prog_pharmd"
+  ],
+  "Research & sciences": [
+   "prog_computing",
+   "prog_engineering",
+   "prog_pharmd"
+  ]
+ },
+ "regulators": [
+  {
+   "id": "reg_pmdc",
+   "name": "Pakistan Medical and Dental Council (PMDC)",
+   "covers": [
+    "MBBS",
+    "BDS"
+   ],
+   "url": "https://www.pmdc.pk",
+   "check": "Before applying, confirm the college is PMDC-recognised and that your intake year is approved.",
+   "source_type": "general-knowledge",
+   "confidence": "high",
+   "sources": [
+    {
+     "title": "PMDC",
+     "url": "https://www.pmdc.pk"
+    }
+   ]
+  },
+  {
+   "id": "reg_pec",
+   "name": "Pakistan Engineering Council (PEC)",
+   "covers": [
+    "Engineering"
+   ],
+   "url": "https://www.pec.org.pk",
+   "check": "Confirm the engineering program is PEC-accredited: only accredited degrees lead to PEC registration.",
+   "source_type": "general-knowledge",
+   "confidence": "high",
+   "sources": [
+    {
+     "title": "PEC",
+     "url": "https://www.pec.org.pk"
+    }
+   ]
+  },
+  {
+   "id": "reg_hec",
+   "name": "Higher Education Commission (HEC)",
+   "covers": [
+    "All degree-awarding institutions"
+   ],
+   "url": "https://www.hec.gov.pk",
+   "check": "Confirm the university/campus is HEC-recognised for the exact program (check the recognised-institutions list on hec.gov.pk).",
+   "source_type": "general-knowledge",
+   "confidence": "high",
+   "sources": [
+    {
+     "title": "HEC",
+     "url": "https://www.hec.gov.pk"
+    }
+   ]
+  },
+  {
+   "id": "reg_pcp",
+   "name": "Pharmacy Council of Pakistan",
+   "covers": [
+    "Pharm-D"
+   ],
+   "url": "",
+   "check": "Confirm the Pharm-D program is recognised by the Pharmacy Council of Pakistan (search its official website).",
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "reg_nceac",
+   "name": "National Computing Education Accreditation Council (NCEAC)",
+   "covers": [
+    "Computing"
+   ],
+   "url": "",
+   "check": "Check whether the computing program is NCEAC-accredited (search the council's official website).",
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "reg_nbeac",
+   "name": "National Business Education Accreditation Council (NBEAC)",
+   "covers": [
+    "Business"
+   ],
+   "url": "",
+   "check": "Check whether the business program is NBEAC-accredited (search the council's official website).",
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  }
+ ],
+ "programs": [
+  {
+   "id": "prog_mbbs",
+   "name": "MBBS",
+   "field": "Medicine",
+   "regulator_id": "reg_pmdc",
+   "streams": [
+    "Pre-Medical"
+   ],
+   "stream_source": "general-knowledge",
+   "entry_tests": [
+    "MDCAT (PMDC pool)",
+    "NUMS entry test (NUMS colleges)"
+   ],
+   "merit_formula_ids": [
+    "mdcat_pmdc",
+    "nums_official"
+   ],
+   "rules": [
+    {
+     "type": "min_test_percent",
+     "value": 55,
+     "scope": "MDCAT / NUMS test",
+     "text": "Minimum 55% in the entry test for MBBS",
+     "confidence": "medium"
+    },
+    {
+     "type": "min_fsc_percent",
+     "value": 60,
+     "scope": "NUMS colleges only (secondary sources)",
+     "text": "Minimum 60% in FSc Pre-Medical for NUMS",
+     "confidence": "low"
+    }
+   ],
+   "notes": "Public-college seats are decided by aggregate merit; see the Merit Calculator for past closing merits.",
+   "source_type": "official+secondary",
+   "confidence": "medium",
+   "sources": [
+    {
+     "title": "NUMS - Centralized Admissions MBBS/BDS Session 2025-26 (official)",
+     "url": "https://numspak.edu.pk/news-detail/centralized-admissions-mbbs-bds-session-2025-26"
+    },
+    {
+     "title": "Wikipedia - List of medical schools in Pakistan (PMDC guidelines summary)",
+     "url": "https://en.wikipedia.org/wiki/List_of_medical_schools_in_Pakistan"
+    }
+   ]
+  },
+  {
+   "id": "prog_bds",
+   "name": "BDS",
+   "field": "Dentistry",
+   "regulator_id": "reg_pmdc",
+   "streams": [
+    "Pre-Medical"
+   ],
+   "stream_source": "general-knowledge",
+   "entry_tests": [
+    "MDCAT (PMDC pool)",
+    "NUMS entry test (NUMS colleges)"
+   ],
+   "merit_formula_ids": [
+    "mdcat_pmdc",
+    "nums_official"
+   ],
+   "rules": [
+    {
+     "type": "min_test_percent",
+     "value": 50,
+     "scope": "NUMS colleges (official); PMDC pool reportedly 45%",
+     "text": "NUMS BDS pass percentage 50% (PMDC pool reportedly 45%)",
+     "confidence": "medium"
+    }
+   ],
+   "notes": "",
+   "source_type": "official+secondary",
+   "confidence": "medium",
+   "sources": [
+    {
+     "title": "NUMS - Centralized Admissions MBBS/BDS Session 2025-26 (official)",
+     "url": "https://numspak.edu.pk/news-detail/centralized-admissions-mbbs-bds-session-2025-26"
+    },
+    {
+     "title": "Wikipedia - List of medical schools in Pakistan (PMDC guidelines summary)",
+     "url": "https://en.wikipedia.org/wiki/List_of_medical_schools_in_Pakistan"
+    }
+   ]
+  },
+  {
+   "id": "prog_pharmd",
+   "name": "Pharm-D (Doctor of Pharmacy)",
+   "field": "Pharmacy",
+   "regulator_id": "reg_pcp",
+   "streams": [
+    "Pre-Medical"
+   ],
+   "stream_source": "general-knowledge",
+   "entry_tests": [],
+   "merit_formula_ids": [],
+   "rules": [],
+   "notes": "Entry test and merit rules differ by university: not available in the verified data. Check each prospectus.",
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "prog_engineering",
+   "name": "Engineering (BE/BSc)",
+   "field": "Engineering",
+   "regulator_id": "reg_pec",
+   "streams": [
+    "Pre-Engineering"
+   ],
+   "stream_source": "general-knowledge",
+   "entry_tests": [
+    "ECAT (UET)",
+    "NUST NET",
+    "University-specific tests"
+   ],
+   "merit_formula_ids": [
+    "ecat_uet_17_50_33",
+    "ecat_uet_25_45_30",
+    "nust_net"
+   ],
+   "rules": [],
+   "notes": "Some universities also accept ICS or DAE for selected programs: check each prospectus. Minimum FSc percentage and weights differ by university.",
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "prog_computing",
+   "name": "Computing (BS CS / SE / IT / AI / Data Science)",
+   "field": "Computing",
+   "regulator_id": "reg_nceac",
+   "streams": [],
+   "streams_note": "Eligible intermediate streams vary by university: not available in the verified data.",
+   "entry_tests": [
+    "University-specific tests",
+    "NTS NAT (some universities)"
+   ],
+   "merit_formula_ids": [
+    "nts_nat_generic",
+    "nust_net"
+   ],
+   "rules": [],
+   "notes": "Always check each university's prospectus for eligibility, test and weights.",
+   "source_type": "general-knowledge",
+   "confidence": "low",
+   "sources": []
+  },
+  {
+   "id": "prog_business",
+   "name": "Business (BBA / Commerce / Finance)",
+   "field": "Business",
+   "regulator_id": "reg_nbeac",
+   "streams": [],
+   "streams_note": "Eligible streams vary by university: not available in the verified data.",
+   "entry_tests": [
+    "University-specific tests"
+   ],
+   "merit_formula_ids": [
+    "nts_nat_generic"
+   ],
+   "rules": [],
+   "notes": "",
+   "source_type": "general-knowledge",
+   "confidence": "low",
+   "sources": []
+  }
+ ],
+ "scholarships": [
+  {
+   "id": "sch_hec_nbs",
+   "name": "HEC Need Based Scholarship",
+   "provider": "Higher Education Commission (via participating public-sector universities)",
+   "level": "Undergraduate",
+   "rules": [
+    {
+     "type": "max_monthly_family_income",
+     "value": 45000,
+     "currency": "PKR",
+     "text": "Monthly family income from all sources not exceeding Rs. 45,000 (figure quoted by a university page: HEC may have changed it, verify)",
+     "confidence": "low"
+    }
+   ],
+   "requirements": [
+    "Admitted on merit at a participating public-sector university",
+    "Self-finance, evening and distance-learning students are not eligible",
+    "Students holding another scholarship or grant are not eligible",
+    "You do not apply to HEC directly: apply through your university's financial aid office",
+    "75% attendance for continuing scholars",
+    "Reported stipend: Rs. 6,000 per month (verify current amount)"
+   ],
+   "apply_url": "https://www.hec.gov.pk/english/scholarshipsgrants/nbs/pages/downloads.aspx",
+   "source_type": "university-page",
+   "confidence": "medium",
+   "sources": [
+    {
+     "title": "Women University Multan - HEC Need Based Scholarship criteria (income limit, stipend, attendance)",
+     "url": "https://wum.edu.pk/admissions/scholarships/hec-need-base-scholarship"
+    },
+    {
+     "title": "HEC Need Based Scholarship - eligibility and award process (university page quoting HEC)",
+     "url": "https://umw.edu.pk/?p=8192"
+    },
+    {
+     "title": "HEC Need Based Scholarship downloads page",
+     "url": "https://www.hec.gov.pk/english/scholarshipsgrants/nbs/pages/downloads.aspx"
+    }
+   ]
+  }
+ ],
+ "careers": [
+  {
+   "id": "car_medicine",
+   "title": "Medicine / Dentistry",
+   "field": [
+    "Medicine",
+    "Dentistry"
+   ],
+   "steps": [
+    "Complete MBBS or BDS at a PMDC-recognised college",
+    "Complete the mandatory house job / internship and register with PMDC (verify current rules)",
+    "Choose a direction: clinical specialisation, public health, research or teaching"
+   ],
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "car_engineering",
+   "title": "Engineering",
+   "field": [
+    "Engineering"
+   ],
+   "steps": [
+    "Complete a PEC-accredited engineering degree",
+    "Register with PEC (verify current rules)",
+    "Choose a direction: industry, research (MS/PhD), or entrepreneurship"
+   ],
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "car_computing",
+   "title": "Computing and data",
+   "field": [
+    "Computing"
+   ],
+   "steps": [
+    "Complete a BS in a computing field (check NCEAC accreditation)",
+    "Build projects and an internship record while studying",
+    "Choose a direction: software, data/AI, security, or postgraduate study"
+   ],
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "car_pharmacy",
+   "title": "Pharmacy",
+   "field": [
+    "Pharmacy"
+   ],
+   "steps": [
+    "Complete a recognised Pharm-D",
+    "Register as required by the Pharmacy Council (verify current rules)",
+    "Choose a direction: hospital/clinical, industry, regulatory work, or research"
+   ],
+   "source_type": "general-knowledge",
+   "confidence": "medium",
+   "sources": []
+  },
+  {
+   "id": "car_business",
+   "title": "Business and finance",
+   "field": [
+    "Business"
+   ],
+   "steps": [
+    "Complete a recognised business degree",
+    "Gain internships and, if relevant, professional certifications",
+    "Choose a direction: corporate, entrepreneurship, finance, or postgraduate study"
+   ],
+   "source_type": "general-knowledge",
+   "confidence": "low",
+   "sources": []
+  }
+ ]
+}
